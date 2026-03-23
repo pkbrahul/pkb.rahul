@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gramkendra Computers</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body { margin:0; font-family:Arial; background:#f4f6f9; }
+
+header {
+    background: linear-gradient(45deg,#0d47a1,#1976d2);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.main { display:flex; }
+
+.side {
+    width:120px;
+    height:500px;
+    overflow:hidden;
+    background:#000;
+}
+
+.scroll {
+    display:flex;
+    flex-direction:column;
+    animation:scrollUp 25s linear infinite;
+}
+
+.scroll img {
+    width:100%;
+    height:100px;
+    object-fit:cover;
+}
+
+@keyframes scrollUp {
+    0% {transform:translateY(0);}
+    100% {transform:translateY(-100%);}
+}
+
+.center { flex:1; }
+
+.ticker {
+    background:black;
+    color:white;
+    overflow:hidden;
+    padding:6px 0;
+}
+
+.ticker span {
+    display:inline-block;
+    white-space:nowrap;
+    animation:scrollText 150s linear infinite;
+}
+
+@keyframes scrollText {
+    0% {transform:translateX(100%);}
+    100% {transform:translateX(-100%);}
+}
+
+.container {
+    max-width:600px;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+input, textarea, select {
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+
+button { padding:10px; margin-top:10px; }
+
+.submit-btn { background:green; color:white; }
+.reset-btn { background:red; color:white; }
+
+footer {
+    background:#111;
+    padding:8px;
+}
+
+.social-icons {
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.social-icons a {
+    color:white;
+    background:#222;
+    padding:8px;
+    border-radius:50%;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>GRAMKENDRA COMPUTERS</h2>
+<p>Pakribarawan, Nawada</p>
+</header>
+
+<div class="main">
+
+<!-- LEFT -->
+<div class="side">
+<div class="scroll">
+<img src="img1.png"><img src="img2.png"><img src="img3.png"><img src="img4.png"><img src="img5.png">
+<img src="img6.png"><img src="img7.png"><img src="img8.png"><img src="img9.png"><img src="img10.png">
+</div>
+</div>
+
+<!-- CENTER -->
+<div class="center">
+
+<div class="ticker">
+<span>
+📢 मोरल ग्रुप ऑफ कंपनीज 2007 से 28 राज्यों में सक्रिय | 🛒 FMCG उत्पाद उपलब्ध | 💰 MCCSL निवेश सुविधा | 🪙 डिजिटल कॉइन सिस्टम | 📞 संपर्क करें: pkb.moral@gmail.com |
+</span>
+</div>
+
+<div class="container">
+<form id="myForm">
+
+<label>Member ID</label>
+<input type="text" required>
+
+<label>Name</label>
+<input type="text" required>
+
+<label>Address</label>
+<textarea required></textarea>
+
+<label>Mobile</label>
+<input type="tel" required>
+
+<label>Bill Date</label>
+<input type="date" required>
+
+<label>Amount</label>
+<input type="number" required>
+
+<label>Upload Bill</label>
+<input type="file">
+
+<label>Paid To</label>
+<select required>
+<option value="">Select</option>
+<option>RAHUL CHOUHAN</option>
+<option>SUNIL CHAUHAN</option>
+<option>Other</option>
+</select>
+
+<button type="submit" class="submit-btn">Submit</button>
+<button type="reset" class="reset-btn">Reset</button>
+
+</form>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="side">
+<div class="scroll">
+<img src="img11.png"><img src="img12.png"><img src="img13.png"><img src="img14.png"><img src="img15.png">
+<img src="img16.png"><img src="img17.png"><img src="img18.png"><img src="img19.png"><img src="img20.png">
+</div>
+</div>
+
+</div>
+
+<footer>
+<div class="social-icons">
+<a href="https://www.youtube.com/@rctechinfo"><i class="fab fa-youtube"></i></a>
+<a href="https://www.instagram.com/pkb.rahul"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+</div>
+</footer>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycby86TNa42YAF-VdkVwmP1OmQIu1OYhP7kAqfVtzFVlbYwWD1p9w5Fc7B0NOu42vB1DchQ/exec";
+
+document.getElementById("myForm").addEventListener("submit", async function(e){
+e.preventDefault();
+
+let fileInput = this.querySelector('input[type="file"]');
+let file = fileInput.files[0];
+
+let base64 = "";
+let fileName = "";
+
+if(file){
+    fileName = file.name;
+    base64 = await toBase64(file);
+}
+
+let data = {
+    memberId: this[0].value,
+    name: this[1].value,
+    address: this[2].value,
+    mobile: this[3].value,
+    billDate: this[4].value,
+    amount: this[5].value,
+    paidTo: this[7].value,
+    file: base64 ? base64.split(',')[1] : "",
+    fileName: fileName
+};
+
+fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+})
+.then(res => {
+
+    alert("Saved Successfully ✅");
+
+    let msg = `🙏 नमस्ते ${data.name},
+
+🆔 Member ID: ${data.memberId}
+📅 Date: ${data.billDate}
+💰 Amount: ₹${data.amount}
+👤 Paid To: ${data.paidTo}
+
+🏪 GRAMKENDRA COMPUTERS
+📍 Pakribarawan, Nawada
+🛒 FMCG 1338 PAKRIBARAWAN
+
+📧 For more update: pkb.moral@gmail.com
+
+✨ हमारे यहाँ से खरीदारी करने के लिए आपका धन्यवाद 🙏
+🌟 आपका दिन शुभ और मंगलमय हो 🌟`;
+
+    let mobile = data.mobile.replace(/\D/g, "");
+
+    window.open(`https://wa.me/91${mobile}?text=${encodeURIComponent(msg)}`);
+
+    document.getElementById("myForm").reset();
+
+})
+.catch(err => alert("Error ❌"));
+});
+
+function toBase64(file) {
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+</script>
+
+</body>
+</html>
